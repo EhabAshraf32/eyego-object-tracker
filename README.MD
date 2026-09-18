@@ -1,13 +1,13 @@
-**# Real-Time Object Tracker**
+# Real-Time Object Tracker
 
 A real-time object tracking system that allows the user to select an object in the first webcam frame and track it as it moves.
 
-**## Requirements**
+## Requirements
 
 * Python 3.x
 * OpenCV
 
-**## Project Structure**
+## Project Structure
 
 ```text
 eyego-object-tracker/
@@ -18,13 +18,13 @@ eyego-object-tracker/
 └── .gitignore
 ```
 
-**## Installation**
+## Installation
 
 ```bash
 pip install -r requirements.txt
 ```
 
-**## Usage**
+## Usage
 
 Run the application from the project root:
 
@@ -40,7 +40,7 @@ The selected object will then be tracked in real time, with the updated bounding
 
 Press `q` to exit the application, or use `Ctrl+C` in the terminal to stop the process.
 
-**## Implementation**
+## Implementation
 
 The system uses OpenCV to:
 
