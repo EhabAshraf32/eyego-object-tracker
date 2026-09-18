@@ -10,21 +10,32 @@ def main():
         print("Error: Could not open webcam.")
         return
 
-    while True:
-        # Read a frame from the webcam
-        ret, frame = cap.read()
+    # Read the first frame
+    ret, frame = cap.read()
 
-        # Stop if the frame could not be read
-        if not ret:
-            print("Error: Could not read frame.")
-            break
+    # Stop if the first frame could not be read
+    if not ret:
+        print("Error: Could not read the first frame.")
+        cap.release()
+        return
 
-        # Display the current frame
-        cv2.imshow("Eyego Object Tracker", frame)
+    # Let the user select the object using a bounding box
+    bbox = cv2.selectROI("Eyego Object Tracker", frame, False)
 
-        # Press 'q' to quit
-        if cv2.waitKey(1) & 0xFF == ord("q"):
-            break
+    # Display the selected bounding box
+    x, y, w, h = bbox
+    cv2.rectangle(
+        frame,
+        (x, y),
+        (x + w, y + h),
+        (0, 255, 0),
+        2
+    )
+
+    cv2.imshow("Eyego Object Tracker", frame)
+
+    # Wait for a key press
+    cv2.waitKey(0)
 
     # Release the webcam
     cap.release()
