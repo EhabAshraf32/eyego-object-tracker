@@ -1,44 +1,51 @@
-# Real-Time Object Tracker
+**# Real-Time Object Tracker**
 
 A real-time object tracking system that allows the user to select an object in the first webcam frame and track it as it moves.
 
-## Requirements
+**## Requirements**
 
-- Python 3.x
-- OpenCV
+* Python 3.x
+* OpenCV
 
-## Installation
+**## Project Structure**
+
+```text
+eyego-object-tracker/
+├── src/
+│   └── tracker.py
+├── requirements.txt
+├── README.md
+└── .gitignore
+```
+
+**## Installation**
 
 ```bash
 pip install -r requirements.txt
-
 ```
 
-## Usage
+**## Usage**
 
-Run the application with:
+Run the application from the project root:
 
 ```bash
-
 python src/tracker.py
-
-Or if you want to open the src folder...
-
-cd src then 
-python tracker.py
-
 ```
 
-The application opens the default webcam and displays the live video feed.
+The application opens the default webcam.
 
-Press q to exit.
+Select the object you want to track by drawing a bounding box around it in the first frame.
 
-## Implementation
+The selected object will then be tracked in real time, with the updated bounding box displayed on the live video feed.
 
-The application currently uses OpenCV to:
+Press `q` to exit the application, or use `Ctrl+C` in the terminal to stop the process.
 
-- Capture the first frame from the webcam.
+**## Implementation**
 
-- Allow the user to select the target object using a bounding box.
+The system uses OpenCV to:
 
-- Store the selected object's bounding box coordinates.
+* Capture frames from the webcam.
+* Allow the user to select the target object using a bounding box.
+* Initialize a CSRT tracker using the selected object.
+* Track the selected object across subsequent frames.
+* Display the updated bounding box and tracking status on the live video feed.

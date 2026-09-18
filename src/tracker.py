@@ -19,23 +19,68 @@ def main():
         cap.release()
         return
 
-    # Let the user select the object using a bounding box
+    # Let the user select the object to track
     bbox = cv2.selectROI("Eyego Object Tracker", frame, False)
 
-    # Display the selected bounding box
-    x, y, w, h = bbox
-    cv2.rectangle(
-        frame,
-        (x, y),
-        (x + w, y + h),
-        (0, 255, 0),
-        2
-    )
+    # Create the CSRT tracker
+    tracker = cv2.TrackerCSRT_create()
 
-    cv2.imshow("Eyego Object Tracker", frame)
+    # Initialize the tracker with the selected object
+    tracker.init(frame, bbox)
 
-    # Wait for a key press
-    cv2.waitKey(0)
+    while True:
+        # Read the next frame
+        ret, frame = cap.read()
+
+        if not ret:
+            print("Error: Could not read frame.")
+            break
+
+        # Update the tracker with the new frame
+        success, bbox = tracker.update(frame)
+
+        if success:
+            # Convert the bounding box values to integers
+            x, y, w, h = [int(value) for value in bbox]
+
+            # Draw the updated bounding box
+            cv2.rectangle(
+                frame,
+                (x, y),
+                (x + w, y + h),
+                (0, 255, 0),
+                2
+            )
+
+            # Display tracking status
+            cv2.putText(
+                frame,
+                "Tracking",
+                (10, 30),
+                cv2.FONT_HERSHEY_SIMPLEX,
+                0.7,
+                (0, 255, 0),
+                2
+            )
+
+        else:
+            # Display a message if tracking fails
+            cv2.putText(
+                frame,
+                "Tracking lost",
+                (10, 30),
+                cv2.FONT_HERSHEY_SIMPLEX,
+                0.7,
+                (0, 0, 255),
+                2
+            )
+
+        # Display the current frame
+        cv2.imshow("Eyego Object Tracker", frame)
+
+        # Press 'q' to quit
+        if cv2.waitKey(1) & 0xFF == ord("q"):
+            break
 
     # Release the webcam
     cap.release()
