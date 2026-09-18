@@ -46,6 +46,8 @@ The system uses OpenCV to:
 
 * Capture frames from the webcam.
 * Allow the user to select the target object using a bounding box.
-* Initialize a CSRT tracker using the selected object.
+* Initialize a **CSRT (Discriminative Correlation Filter with Channel and Spatial Reliability)** tracker using the selected object.
 * Track the selected object across subsequent frames.
 * Display the updated bounding box and tracking status on the live video feed.
+
+**CSRT** was chosen because it provides good tracking accuracy and robustness for real-time object tracking while being suitable for webcam-based applications.
